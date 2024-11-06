@@ -1,0 +1,42 @@
+##
+
+GET http://localhost:5000/api/rooms
+
+###
+POST http://localhost:5000/api/rooms
+Content-Type: application/json
+
+{
+  "name": "test room",
+  "price": 2393,
+  "desc": "something desc",
+  "img": ["img1.jpg", "img2.jpg"],
+  "roomNumbers": [
+    {
+      "number": 101,
+      "unavailableDates": ["2024-11-23", "2024-11-25"]
+    }
+  ]
+}
+
+###
+GET http:localhost:5000/api/users
+
+Content-Type: application/json
+{
+  {
+  
+  "email":"shahinmahmud214@gmail.com",
+  "password":"password"
+}
+}
+
+#auth
+###
+GET http://localhost:5000/api/auth
+
+
+##logout
+###
+
+http://localhost:5000/api/users/logout
