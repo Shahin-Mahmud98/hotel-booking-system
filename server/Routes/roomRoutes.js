@@ -1,6 +1,9 @@
 const {Router } = require("express");
 const { getRooms, createRoom,getRoom, updateRoom, deleteRoom } = require("../controllers/roomControllers");
 const { auth } = require("../middleware/authMiddleware");
+const multer = require("multer");
+const upload = require("../middleware/multer");
+
 
 const router = Router();
 
@@ -17,7 +20,8 @@ router.get("/",getRooms
 );
 
 //create rooms here
-router.post("/",auth, createRoom);
+router.post("/",upload.fields([{name:"file"}]), createRoom);
+
 
 //get single room
 router.get("/:id",getRoom);

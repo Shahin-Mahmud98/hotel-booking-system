@@ -11,7 +11,7 @@ const router = Router();
 //  router.get("/",(req,res)=>{
 //     return res.json({messsage:"get all new booking"})
 // });
-router.get("/",auth, getBooking);
+router.get("/", getBooking);
 router.post("/",createBooking);
 router.get("/:id",singleBooking);
 router.patch("/:id",auth,updateBooking);

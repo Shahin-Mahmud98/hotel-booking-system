@@ -1,8 +1,10 @@
-const Room = require("../models/roomModel")
+const upload = require("../middleware/multer");
+const Room = require("../models/roomModel");
+const cloudinary = require("../config/cloudinary")
 
 
 //get all rooms
-const getRooms = async (req,res) => {
+const getRooms = async (req,res,next) => {
     try {
     const rooms = await Room.find();
     if (!rooms) {
@@ -18,9 +20,24 @@ const getRooms = async (req,res) => {
 //create rooms
 // create room
 const createRoom = async (req, res, next) => {
+  // console.log(req.file.file,"first image");
+  // console.log(req.body);
+  console.log(req.file,"file",req.files,"files")
     try {
       /*todo validate data from  user with joi*/
-      const room = await Room.create(req.body);
+      const files = req.files;
+      // console.log(files,"files")
+      let img = []
+      for(const file of files){
+        if(file){
+          const { path } = file;
+          const uploaded = await cloudinary.uploader.upload(path);
+          img.push({img: uploaded.secure_url})
+        }
+      }
+      cloudinary.uploader.upload(req.file)
+      const room = await Room.create({...req.body,img});
+      
   
       if (!room) {
         res.status(400);
